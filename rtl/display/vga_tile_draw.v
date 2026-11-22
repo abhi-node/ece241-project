@@ -1,24 +1,3 @@
-/*
- * vga_tile_draw
- *
- * Copies the maze RAM onto the screen, forever. It never knows or cares when
- * the maze changes; it just keeps repainting, about 2,600 full frames per
- * second, so any tile an algorithm writes shows up almost instantly.
- *
- * Geometry: the course VGA adapter runs at 160x120. Each tile is a 4x4 pixel
- * block, the maze is 39x29 tiles = 156x116 pixels, and a 2-pixel border
- * centres it on the screen.
- *
- * It is two nested counters with a two-state FSM on top:
- *   FETCH  present {row, col} to maze RAM port B (data arrives next clock)
- *   PLOT   16 clocks: write the tile's colour to the adapter at every pixel
- *          (px, py) of the 4x4 block, then advance to the next tile
- * The RAM address does not change during PLOT, so tile_q stays valid for the
- * whole block. 17 clocks per tile x 1131 tiles = 19,227 clocks per frame.
- *
- * Outputs connect straight to the course vga_adapter's x, y, color and write
- * ports (3-bit colour = {R, G, B}).
- */
 `timescale 1ns / 1ns
 module vga_tile_draw (
     input  wire        clk,

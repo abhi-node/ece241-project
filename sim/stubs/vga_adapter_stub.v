@@ -1,11 +1,3 @@
-/*
- * vga_adapter (simulation stub)
- *
- * Stands in for the course vga_adapter in simulation only, because the real
- * one needs Intel's altsyncram and altpll models. It has the same ports and
- * parameters, captures every write into a 160x120 frame buffer, and drives
- * the VGA pins to constants. Never add this file to the Quartus project.
- */
 `timescale 1ns / 1ns
 module vga_adapter #(
     parameter RESOLUTION       = "160x120",

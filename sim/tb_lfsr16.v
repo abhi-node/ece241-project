@@ -1,9 +1,3 @@
-/*
- * tb_lfsr16
- *
- * Checks the LFSR never reaches the all-zero lock-up state and returns to its
- * seed after exactly 65535 clocks (maximal length).
- */
 `timescale 1ns / 1ns
 module tb_lfsr16;
     reg         clk = 1'b0;

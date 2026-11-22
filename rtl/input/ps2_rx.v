@@ -1,24 +1,3 @@
-/*
- * ps2_rx
- *
- * Receives one byte at a time from a PS/2 keyboard. The keyboard drives its
- * own clock (about 10-17 kHz) and sends 11-bit frames, data changing while the
- * PS/2 clock is high and valid on its falling edge:
- *
- *   start(0)  d0 d1 d2 d3 d4 d5 d6 d7  odd-parity  stop(1)
- *
- * Both PS/2 lines are first passed through flip-flop synchronisers because
- * they are not related to CLOCK_50. A falling edge on the synchronised PS/2
- * clock shifts the data bit into an 11-bit register from the top, so after ten
- * bits the start bit sits at shift[1], the data byte at shift[9:2] and the
- * parity bit at shift[10]; the stop bit is checked live on the eleventh edge.
- * A good frame produces a one-clock scan_valid pulse; a bad one pulses
- * frame_error.
- *
- * If the keyboard goes quiet mid-frame (a missed edge, a hot-plug) the idle
- * counter fills up and resets the bit counter, so one glitch cannot leave the
- * receiver permanently misaligned.
- */
 `timescale 1ns / 1ns
 module ps2_rx #(
     parameter TIMEOUT_BITS = 17

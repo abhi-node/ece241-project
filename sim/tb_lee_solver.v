@@ -1,15 +1,3 @@
-/*
- * tb_lee_solver
- *
- * Solves the hard-coded maze and checks the answer against a reference
- * shortest-path distance computed inside the testbench:
- *   - found is set and path_length = shortest distance - 1
- *   - the yellow tiles form one unbroken chain from START to END
- *   - solving a second time gives the same result (the clean sweep works)
- *   - with END walled off, the solver finishes with found = 0
- * Also checks the cycle count is the same at slow animation speed as at
- * full speed, since working drops while waiting for a tick.
- */
 `timescale 1ns / 1ns
 module tb_lee_solver;
     localparam [2:0] T_WALL = 3'd0, T_PATH = 3'd1, T_START = 3'd2,

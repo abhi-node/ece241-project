@@ -1,13 +1,3 @@
-/*
- * tb_maze_top
- *
- * Whole-system test with the VGA adapter replaced by sim/stubs. It presses
- * the board buttons the way a person would (SW[9] up for instant speed):
- *   1. solve the power-up maze  2. generate a new maze  3. solve it
- * After each step it lets the drawer repaint, then checks every pixel of the
- * captured frame against the colour of its tile in maze RAM, and writes the
- * final screen to out/frame.ppm so it can be looked at.
- */
 `timescale 1ns / 1ns
 module tb_maze_top;
     reg        clk = 1'b0;

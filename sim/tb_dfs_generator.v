@@ -1,12 +1,3 @@
-/*
- * tb_dfs_generator
- *
- * Runs the generator twice at full speed and checks each result is a perfect
- * maze: every cell is open, the border and every even/even tile are wall,
- * start and end are marked, and exactly 266 cells + 265 passages are open
- * (a spanning tree has one fewer passage than cells, so it is connected and
- * loop-free). Also checks the two mazes differ and prints the second one.
- */
 `timescale 1ns / 1ns
 module tb_dfs_generator;
     reg         clk = 1'b0;

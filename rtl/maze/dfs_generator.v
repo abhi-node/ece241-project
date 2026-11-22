@@ -1,29 +1,3 @@
-/*
- * dfs_generator
- *
- * Carves a random perfect maze (exactly one route between any two tiles) into
- * maze RAM using iterative depth-first search with an explicit stack.
- *
- * Grid: tiles with odd row and odd col are cells (14 x 19 = 266 cells); the
- * tiles between them are walls that may be knocked out. The outer ring is
- * never touched, so the maze always has a solid border.
- *
- * Algorithm ("explorer with a pickaxe and a ball of string"):
- *   CLEAR      write WALL to every tile
- *   OPEN_START open the start cell (1,1), empty the stack
- *   READ/CHECK look two tiles away in each of the 4 directions; a neighbour
- *              cell is "unvisited" if it is in bounds and still WALL
- *   PICK       none unvisited -> BACKTRACK; otherwise wait for an animation
- *              tick and choose one using the LFSR
- *   CARVE_WALL open the wall tile between here and the chosen cell
- *   CARVE_CELL open the chosen cell, push the current cell, move there
- *   BACKTRACK  stack empty -> done; otherwise pop the previous cell
- *   RESUME     move to the popped cell and check its neighbours again
- *   MARK_START / MARK_END  paint the start (1,1) and end (27,37) tiles
- *
- * Every maze RAM read takes a clock, which is why READ and CHECK are separate
- * states. Directions are 0 north, 1 east, 2 south, 3 west.
- */
 `timescale 1ns / 1ns
 module dfs_generator (
     input  wire        clk,

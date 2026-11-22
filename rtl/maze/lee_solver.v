@@ -1,38 +1,3 @@
-/*
- * lee_solver
- *
- * Finds the shortest route from START (1,1) to END (27,37) with Lee's
- * algorithm: a breadth-first "flood" outward from the start, followed by a
- * backtrace from the end along the recorded wavefront.
- *
- * Memories:
- *   maze RAM (port A, shared)  tiles are re-coloured as the flood spreads
- *   QUEUE   2048 x 11          FIFO of tiles waiting to be expanded; head and
- *                              tail only ever count up because each tile is
- *                              enqueued at most once (1131 tiles < 2048)
- *   PARENT  2048 x 2           for each reached tile, the direction that
- *                              points back toward the start
- *
- * Phases:
- *   CLEAN       sweep every tile, turning VISITED/SOLUTION from a previous
- *               solve back into PATH, so S can be pressed repeatedly
- *   SEED        enqueue the start tile
- *   POP / LOAD  queue empty -> finish, not found; otherwise wait for an
- *               animation tick, dequeue the next tile into cur
- *   PROBE / EXPAND  for each of the 4 neighbours of cur: if it is END the
- *               search is over; if it is PATH, mark it VISITED (cyan),
- *               record the direction back to cur, and enqueue it
- *   TRACE_READ / TRACE_STEP / TRACE_MARK  starting at END, read the parent
- *               direction, step that way, and paint the tile SOLUTION
- *               (yellow) until START is reached
- *
- * Because BFS reaches every tile by the fewest possible steps, following the
- * parent pointers back from END always gives a shortest path.
- *
- * working is high on every clock the solver is doing algorithm work (not
- * cleaning, not waiting for an animation tick); it drives the cycle counter
- * shown on the HEX displays. path_length counts the yellow tiles.
- */
 `timescale 1ns / 1ns
 module lee_solver (
     input  wire        clk,

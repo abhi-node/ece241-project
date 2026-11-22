@@ -1,11 +1,3 @@
-/*
- * tb_ps2_keys
- *
- * Bit-bangs real PS/2 frames into ps2_rx -> key_decoder and checks:
- *   G press gives one key_generate pulse even with auto-repeat,
- *   G release then press gives another, S gives key_solve,
- *   number keys set the speed, a bad parity frame raises frame_error.
- */
 `timescale 1ns / 1ns
 module tb_ps2_keys;
     reg        clk = 1'b0;

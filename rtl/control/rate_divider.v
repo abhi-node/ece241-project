@@ -1,18 +1,3 @@
-/*
- * rate_divider
- *
- * Produces a one-clock tick pulse at a selectable rate so the generator and
- * solver can be slowed down enough to watch. The algorithms only take an
- * animated step when tick is high.
- *
- *   speed_sel 0  slow     8 steps/s
- *   speed_sel 1  medium   32 steps/s
- *   speed_sel 2  fast     128 steps/s
- *   speed_sel 3  instant  every clock
- *
- * The comparison is >= rather than == so switching to a faster speed mid-count
- * takes effect immediately instead of waiting for the counter to wrap.
- */
 `timescale 1ns / 1ns
 module rate_divider #(
     parameter [25:0] SLOW_PERIOD   = 26'd6_250_000,

@@ -1,9 +1,3 @@
-/*
- * hex7seg
- *
- * Converts one 4-bit value into the active-low segment pattern for one DE1-SoC
- * seven-segment display, showing 0-9 and A-F. Segment order is {g,f,e,d,c,b,a}.
- */
 `timescale 1ns / 1ns
 module hex7seg (
     input  wire [3:0] value,

@@ -1,22 +1,3 @@
-/*
- * key_decoder
- *
- * Turns raw PS/2 scan codes into commands. Pressing a key sends its make code,
- * holding it repeats the make code, and releasing it sends F0 then the make
- * code again. So the decoder:
- *
- *   - remembers that the last byte was F0, and treats the next byte as a
- *     release instead of a press;
- *   - keeps a "held" flag for G and S so auto-repeat produces exactly one
- *     command pulse per physical press.
- *
- *   G  -> key_generate pulse        1 -> speed 0 (slow)
- *   S  -> key_solve pulse           2 -> speed 1 (medium)
- *                                   3 -> speed 2 (fast)
- *                                   4 -> speed 3 (instant)
- *
- * last_make holds the most recent make code for the debug HEX view.
- */
 `timescale 1ns / 1ns
 module key_decoder (
     input  wire       clk,

@@ -1,30 +1,3 @@
-/*
- * maze_top
- *
- * Top-level entity for the DE1-SoC. It wires the modules together and adds
- * only the glue logic that does not belong to any one of them:
- *
- *   INPUT     ps2_rx -> key_decoder turn keystrokes into generate / solve /
- *             speed commands; KEY[1] and KEY[2] are push-button backups.
- *   CONTROL   control_fsm lets one algorithm run at a time; rate_divider
- *             supplies the animation tick; lfsr16 supplies random directions.
- *   MAZE      dfs_generator and lee_solver take turns on maze_ram port A
- *             (the solver owns it while it is busy, otherwise the generator).
- *   DISPLAY   vga_tile_draw reads maze_ram port B and repaints the course
- *             vga_adapter forever; cycle_counter and hex7seg show statistics.
- *
- * Board controls
- *   KEY[0] reset      KEY[1] generate      KEY[2] solve
- *   G generate        S solve              1/2/3/4 slow/medium/fast/instant
- *   SW[9]  force instant speed
- *   SW[0]  HEX view: 0 = solve cycle count (24-bit hex)
- *                    1 = HEX5-4 last scan code, HEX3 speed,
- *                        HEX2-0 stack depth while generating, else path length
- *
- * LEDs
- *   LEDR[2:0] control state   LEDR[3] maze generated   LEDR[4] path found
- *   LEDR[5] no path           LEDR[8] PS/2 frame error seen   LEDR[9] busy
- */
 `timescale 1ns / 1ns
 module maze_top #(
     parameter        MAZE_INIT_FILE   = "../mem/maze_init.hex",

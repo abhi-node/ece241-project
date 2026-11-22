@@ -1,10 +1,3 @@
-/*
- * tb_control
- *
- * Checks control_fsm hands out exactly one start pulse per accepted request,
- * ignores requests while busy, and that rate_divider ticks at the chosen
- * period (small periods are used so the test is quick).
- */
 `timescale 1ns / 1ns
 module tb_control;
     reg        clk = 1'b0;

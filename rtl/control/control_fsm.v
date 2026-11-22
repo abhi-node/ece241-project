@@ -1,18 +1,3 @@
-/*
- * control_fsm
- *
- * The referee. It owns the single maze RAM write port by allowing only one
- * algorithm to run at a time: a generate or solve request is accepted only
- * from IDLE, turned into a one-clock start pulse, and every further request is
- * ignored until that algorithm reports done.
- *
- *   IDLE --go_generate--> GEN_START --> GENERATING --gen_done--> IDLE
- *   IDLE --go_solve-----> SOLVE_START --> SOLVING --solve_done--> IDLE
- *
- * Generate wins if both requests arrive on the same clock. Solving is allowed
- * from IDLE at any time, including on the hard-coded power-up maze; if the
- * maze has no route the solver simply reports not found.
- */
 `timescale 1ns / 1ns
 module control_fsm (
     input  wire       clk,
