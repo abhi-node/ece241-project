@@ -18,14 +18,14 @@ mem/                    maze_init.hex (power-up maze), black.mif (VGA background
 sim/                    testbenches (tb_*.v) + ModelSim wave scripts (tb_*.do), VGA stub
 quartus/                Quartus project (maze.qpf / maze.qsf)
 docs/
-  architecture.md       how the whole system works, module by module
+  design/               conceptual design: overview, architecture, one page per module
   build_and_demo.md     Quartus steps, demo checklist, troubleshooting
   simulations/          one guide per testbench: what it tests, every wave explained
   proposal.md           original project proposal
 attribution/            who did what (abhi.md, ali.md)
 ```
 
-Every Verilog file starts with a short block explaining what the module does and the core idea behind it.
+The Verilog has no comments; every file is explained in [docs/design/modules/](docs/design/modules/). Start at [docs/design/](docs/design/README.md).
 
 ## How it fits together
 
@@ -47,7 +47,7 @@ Every Verilog file starts with a short block explaining what the module does and
 
 The key idea: **the maze RAM is the only shared state.** The generator and solver edit tiles through port A. The VGA drawer reads port B and repaints the whole screen about 2,600 times a second without being told anything changed. The control FSM lets only one algorithm run at a time, so port A only ever has one writer. The rate divider slows the algorithms down so you can watch them.
 
-See [docs/architecture.md](docs/architecture.md) for the full walkthrough.
+See [docs/design/architecture.md](docs/design/architecture.md) for the full walkthrough.
 
 ## Controls
 
